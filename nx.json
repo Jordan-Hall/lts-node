@@ -25,6 +25,7 @@
     "tenant": { "tags": [] },
     "account": { "tags": [] },
     "billing": { "tags": [] },
-    "guardian": { "tags": [] }
+    "guardian": { "tags": [] },
+    "auth": { "tags": ["auth"] }
   }
 }
