@@ -25,6 +25,7 @@
     "tenant": { "tags": [] },
     "account": { "tags": [] },
     "billing": { "tags": [] },
-    "fileServer": { "tags": ["files"] }
+    "fileServer": { "tags": ["files"] },
+    "modules-travel": { "tags": ["modules", "travel"] }
   }
 }
