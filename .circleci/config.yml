@@ -7,11 +7,20 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: yarn affected:build --base=<< pipeline.git.base_revision >> --head=HEAD
-            - run: yarn affected:deploy --base=<< pipeline.git.base_revision >> --head=HEAD
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run: yarn affected:build --base=<< pipeline.git.base_revision >> --head=HEAD
+      - run: yarn affected -- --target=deploy --base=<< pipeline.git.base_revision >> --head=HEAD
 
 workflows:
   build-test-and-deploy:
