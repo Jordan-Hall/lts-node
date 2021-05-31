@@ -6,7 +6,8 @@ orbs:
 jobs:
   build-test-and-deploy:
     executor:
-      name: node/lts
+      name: node/default
+      tag: '14.17.0'
     steps:
       - checkout
       - restore_cache:
