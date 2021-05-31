@@ -1,12 +1,12 @@
 import { Logger } from '@nestjs/common';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-
 import { ForgotPasswordCommand } from '../impl/forgot-password.command';
-
-import { RpcException } from '@nestjs/microservices';
 import { JwtService } from '@nestjs/jwt';
 import { ForgotPasswordResponse } from '../../../interfaces/account';
 import { ForgotPasswordSentEvent } from '../../../events/impl/forgot-password-sent.event';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserEntity } from '../../../repository/user.entity';
 
 /**
  * @implements {ICommandHandler<ForgotPasswordCommand>}
@@ -25,7 +25,7 @@ export class ForgotPasswordHandler
 	 * @param jwtService
 	 */
 	constructor(
-		private readonly userRepository: UserRepository,
+		@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
 		private readonly eventBus: EventBus,
 		private readonly jwtService: JwtService,
 	) { }
@@ -45,11 +45,13 @@ export class ForgotPasswordHandler
 			const user: UserEntity & {
 				resetPasswordLink?: string;
 			} = await this.userRepository.findOne({
-				'emails.address': cmd.email,
-			});
+				where: {
+					'emails.address': cmd.email,
+				}
+			})
 
 			if (!user) {
-				throw new RpcException('Email is not found');
+				throw new Error('Email is not found');
 			}
 
 			const payload = { id: user.id };
@@ -62,7 +64,7 @@ export class ForgotPasswordHandler
 			};
 		} catch (error) {
 			this.logger.log(error);
-			throw new RpcException(error);
+			throw new Error(error);
 		}
 	}
 }

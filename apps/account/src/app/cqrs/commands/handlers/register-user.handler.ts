@@ -1,24 +1,13 @@
 import { Logger } from '@nestjs/common';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import {
-	AuthServicesTypes,
-	UserEntity,
-	UserRepository,
-} from '@ultimatebackend/repository';
-import { generateVerificationCode } from '@ultimatebackend/common/utils/verification-code-generator';
-import {
-	CreateResponse,
-	LoginServiceTypes,
-} from '@ultimatebackend/proto-schema/account';
-import { RegisterUserCommand } from '../../impl';
-import { UserRegisteredEvent } from '@ultimatebackend/core/cqrs';
-import { RpcException } from '@nestjs/microservices';
+import { RegisterUserCommand } from '../impl/register-user.command';
 import { JwtService } from '@nestjs/jwt';
-import {
-	BillingsRpcClientService,
-	RolesRpcClientService,
-} from '@ultimatebackend/core';
-
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserRegisteredEvent } from '../../../events/impl/user-registered.event';
+import { CreateResponse } from '../../../interfaces/account';
+import { UserEntity } from '../../../repository/user.entity';
+import { generateVerificationCode } from '../../../utils/verification-code-generator';
 /**
  * @implements {ICommandHandler<RegisterUserCommand>}
  * @classdesc CQRS command to register new user
@@ -38,11 +27,9 @@ export class RegisterUserHandler
 	 * @param billingClient
 	 */
 	constructor(
-		private readonly userRepository: UserRepository,
+		@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
 		private readonly eventBus: EventBus,
 		private readonly jwtService: JwtService,
-		private readonly roleClient: RolesRpcClientService,
-		private readonly billingClient: BillingsRpcClientService,
 	) { }
 
 	/**
@@ -56,12 +43,14 @@ export class RegisterUserHandler
 
 		try {
 			/** Check if user exist with email */
-			const userExist: boolean = await this.userRepository.exist({
-				'emails.address': cmd.email,
+			const userExist = await this.userRepository.findOne({
+				where: {
+					'emails.address': cmd.email,
+				}
 			});
 
 			if (userExist) {
-				throw new RpcException(
+				throw new Error(
 					'Email is not available, please try another email',
 				);
 			}
@@ -103,43 +92,36 @@ export class RegisterUserHandler
 
 
 			/** Persist initialized user entity to store */
-			const result = await this.userRepository.create(user);
+			const newUser = this.userRepository.create(user);
 
-			const [, customer] = await Promise.all([
-				this.roleClient.svc
-					.addUserToRole({
-						domain: '*',
-						userId: result.id.toString(),
-						actor: 'user',
-						role: 'customer',
-					})
-					.toPromise(),
-				this.billingClient.svc
-					.createCustomer({
-						currency: '',
-						number: '',
-						name: `${result.firstname} ${result.lastname}`,
-						email: result.emails.reduce(
-							(previousValue) =>
-								previousValue.primary === true && previousValue,
-						).address,
-					})
-					.toPromise(),
-			]);
+			// const [, customer] = await Promise.all([
+			// 	this.roleClient.svc
+			// 		.addUserToRole({
+			// 			domain: '*',
+			// 			userId: result.id.toString(),
+			// 			actor: 'user',
+			// 			role: 'customer',
+			// 		})
+			// 		.toPromise(),
+			// 	this.billingClient.svc
+			// 		.createCustomer({
+			// 			currency: '',
+			// 			number: '',
+			// 			name: `${result.firstname} ${result.lastname}`,
+			// 			email: result.emails.reduce(
+			// 				(previousValue) =>
+			// 					previousValue.primary === true && previousValue,
+			// 			).address,
+			// 		})
+			// 		.toPromise(),
+			// ]);
 
-			const newUser: UserEntity & {
-				activationLink?: string;
-				service?: 'social' | 'local';
-			} = await this.userRepository.findOneByIdAndUpdate(result.id.toString(), {
-				updates: {
-					$set: { 'settings.stripeId': customer.customer.id },
-				},
-			});
+
 			/** Attach the activation link for the event. This is important for the
 			 * notification service to properly send activation e-mail.
 			 */
-			newUser.activationLink = activationLink;
-			newUser.service = activationLink ? 'local' : 'social';
+			// newUser.activationLink = activationLink;
+			// newUser.service = activationLink ? 'local' : 'social';
 
 			/** Publish user created event */
 			this.eventBus.publish(new UserRegisteredEvent(newUser));
@@ -147,7 +129,7 @@ export class RegisterUserHandler
 			return { activationLink };
 		} catch (error) {
 			this.logger.log(error);
-			throw new RpcException(error);
+			throw new Error(error);
 		}
 	}
 }

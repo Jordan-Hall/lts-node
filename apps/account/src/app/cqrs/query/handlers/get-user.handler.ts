@@ -1,12 +1,15 @@
 import { Logger } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetUserQuery } from '../impl/get-user.query';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserEntity } from '../../../repository/user.entity';
 
 
 @QueryHandler(GetUserQuery)
 export class GetUserHandler implements IQueryHandler<GetUserQuery> {
 	logger = new Logger(this.constructor.name);
-	constructor(private readonly userRepository: UserRepository) { }
+	constructor(@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>) { }
 
 	async execute(query: GetUserQuery): Promise<UserEntity> {
 		this.logger.log(query);
@@ -15,7 +18,6 @@ export class GetUserHandler implements IQueryHandler<GetUserQuery> {
 		if (!where) {
 			throw Error('Missing get inputs');
 		}
-		const filter = mongoParser(where);
-
-		return await this.userRepository.findOne({ ...filter }, true);
+		return this.userRepository.findOne(query);
 	}
+}

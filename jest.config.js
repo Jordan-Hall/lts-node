@@ -4,7 +4,5 @@ module.exports = {
     "<rootDir>/apps/tenant",
     "<rootDir>/apps/accounts",
     "<rootDir>/apps/billing",
-    "<rootDir>/apps/guardian",
-    "<rootDir>/apps/auth",
   ],
 };

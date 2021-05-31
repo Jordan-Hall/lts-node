@@ -24,14 +24,6 @@
       "language": "typescript",
       "name": "billing",
       "port": 3002
-    },
-    "auth": {
-      "type": "svc",
-      "docker": true,
-      "kubernetes": false,
-      "language": "typescript",
-      "name": "auth",
-      "port": 3003
     }
   }
 }

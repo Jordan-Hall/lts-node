@@ -1,17 +1,17 @@
 
 import { Logger } from '@nestjs/common';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { UserEntity, UserRepository } from '@ultimatebackend/repository';
-import { validPassword } from '@ultimatebackend/common/utils';
-import { UserLoggedInEvent } from '@ultimatebackend/core/cqrs';
-import { NotFoundError, ValidationError } from '@ultimatebackend/common/errors';
-import {
-	LoginRequest,
-	LoginResponse,
-	LoginServiceTypes,
-} from '@ultimatebackend/proto-schema/account';
-import { LoginUserCommand } from '../../impl';
+
+import { LoginUserCommand } from '../impl/login-user.command';
 import { RpcException } from '@nestjs/microservices';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
+import { UserEntity } from '../../../repository/user.entity';
+import { NotFoundError } from '@ultimate-backend/core';
+import { UserLoggedInEvent } from '../../../events/impl/user-loggedin.event';
+import { LoginResponse, LoginServiceTypes, LoginRequest } from '../../../interfaces/account';
+import { validPassword } from '../../../utils/encryption.util'
+
 
 /**
  * @implements {ICommandHandler<LoginUserCommand>}
@@ -22,13 +22,8 @@ import { RpcException } from '@nestjs/microservices';
 export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
 	logger = new Logger(this.constructor.name);
 
-	/**
-	 * @constructor
-	 * @param userRepository
-	 * @param eventBus
-	 */
 	constructor(
-		private readonly userRepository: UserRepository,
+		@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
 		private readonly eventBus: EventBus,
 	) { }
 
@@ -40,10 +35,7 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
 		try {
 			const condition = getLoginQuery(cmd);
 
-			const user: UserEntity = await this.userRepository.findOne(
-				condition,
-				true,
-			);
+			const user: UserEntity = await this.userRepository.findOne(condition);
 			if (!user) {
 				throw new NotFoundError('Your login credentials is incorrect');
 			}
@@ -52,7 +44,7 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
 				if (
 					!validPassword(cmd.params.password, user.services.password.hashed)
 				) {
-					throw new ValidationError('Your login credentials is incorrect');
+					throw new Error('Your login credentials is incorrect');
 				}
 
 				// Check if user is verified
@@ -60,7 +52,7 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
 					(previousValue) => previousValue.primary === true && previousValue,
 				);
 				if (!userEmail.verified) {
-					throw new ValidationError('Please verify your email address');
+					throw new Error('Please verify your email address');
 				}
 			}
 
@@ -78,33 +70,18 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
 	}
 }
 
-function getLoginQuery(cmd: LoginRequest) {
+function getLoginQuery(cmd: LoginRequest): FindOneOptions<UserEntity> {
 	if (cmd.service === LoginServiceTypes.Password) {
 		return {
-			emails: { $elemMatch: { address: cmd.params.email, primary: true } },
-		};
-	} else if (cmd.service === LoginServiceTypes.Google) {
-		return {
-			emails: { $elemMatch: { address: cmd.params.email, primary: true } },
-			'services.google.userId': cmd.params.accessToken,
-		};
-	} else if (cmd.service === LoginServiceTypes.Github) {
-		return {
-			$and: [
-				{
-					emails: { $elemMatch: { address: cmd.params.email, primary: true } },
-				},
-				{ 'services.github.userId': cmd.params.userId },
-			],
-		};
-	} else if (cmd.service === LoginServiceTypes.Facebook) {
-		return {
-			emails: { $elemMatch: { address: cmd.params.email, primary: true } },
-			'services.facebook.userId': cmd.params.userId,
+			where: {
+				emails: { address: cmd.params.email, primary: true }
+			}
 		};
 	} else {
 		return {
-			emails: { $elemMatch: { address: cmd.params.email, primary: true } },
+			where: {
+				emails: { address: cmd.params.email, primary: true }
+			}
 		};
 	}
 }

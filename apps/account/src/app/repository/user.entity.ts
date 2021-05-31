@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, BeforeInsert } from
 import { IsArray, IsString, Min, MinLength } from 'class-validator';
 import { LocalAuth } from './embeded/auth';
 import { UserResponseDto } from '../dtos/user.response';
-import { hash } from 'bcrypt';
+import { generateHashedPassword } from '../utils/encryption.util'
 
 @Entity({ name: 'user' })
 export class UserEntity extends BaseEntity {
@@ -49,7 +49,9 @@ export class UserEntity extends BaseEntity {
 
 	@BeforeInsert()
 	async hashPassword() {
-		this.password = await hash(this.password, 10);
+		if (this.services?.password) {
+			this.services.password.hashed = generateHashedPassword(this.password);
+		}
 	}
 }
 

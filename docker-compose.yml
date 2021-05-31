@@ -6,17 +6,16 @@ version: "3.2"
 
 services:
 
-  # consul:
-  #   image: bitnami/consul:latest
-  #   networks:
-  #     - consul-network
-  #   ports:
-  #     - '8300:8300'
-  #     - '8301:8301'
-  #     - '8301:8301/udp'
-  #     - '8500:8500'
-  #     - '8600:8600'
-  #     - '8600:8600/udp'
+  eventstore:
+    container_name: eventstore-node
+    ports:
+      - '2113:2113'
+      - '1113:1113'
+    image: eventstore/eventstore:release-5.0.8
+    labels:
+      kompose.service.type: nodeport
+      kompose.service.expose: "true"
+      kompose.image-pull-policy: "Always"
   db:
     image: postgres
     restart: always
@@ -28,12 +27,11 @@ services:
   mongo:
     container_name: mongo
     image: mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
     restart: always
     expose:
-      - 27017
+      - "27017"
+    ports:
+     - "27017:27017"
 
   redis:
     container_name: redis
