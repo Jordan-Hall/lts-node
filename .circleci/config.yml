@@ -23,7 +23,7 @@ jobs:
           paths:
             - ~/.cache/yarn
       - run: yarn affected:build --base=<< pipeline.git.base_revision >> --head=HEAD
-      - run: yarn affected -- --target=deploy --base=<< pipeline.git.base_revision >> --head=HEAD
+      - run: yarn affected --target=deploy --base=<< pipeline.git.base_revision >> --head=HEAD
 
 workflows:
   build-test-and-deploy:

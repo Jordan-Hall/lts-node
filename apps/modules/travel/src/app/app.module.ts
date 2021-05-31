@@ -1,16 +1,7 @@
 import { Module } from "@nestjs/common";
-
-import { ConfigModule, ConfigSource } from '@ultimate-backend/config';
 import { PermissionsModule } from '@ultimate-backend/permissions';
-import { CloudModule } from '@ultimate-backend/cloud';
 import { RedisModule } from '@ultimate-backend/redis';
-import { ConsulModule } from '@ultimate-backend/consul';
-import { ConsulModuleOptions } from '@ultimate-backend/consul/src/lib/consul-module.options';
-import { CONSUL_CONFIG_OPTIONS } from '@ultimate-backend/consul/src/lib/consul.constant';
-import { ClientModule } from '@ultimate-backend/client';
-import { LoadBalancerModule } from '@ultimate-backend/loadbalancer';
 import { BrakesModule } from '@ultimate-backend/brakes';
-import { GraphQLModule } from '@nestjs/graphql';
 import { BootstrapModule } from '@ultimate-backend/bootstrap';
 import { EtcdModule } from '@ultimate-backend/etcd';
 import * as path from 'path';
