@@ -1,21 +1,32 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
-import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
-
+import { UBServiceFactory } from '@ultimate-backend/core';
 import { AppModule } from "./app/app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = "api";
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3333;
-  await app.listen(port, () => {
-    Logger.log("Listening at http://localhost:" + port + "/" + globalPrefix);
+  const whitelist = [
+    'http://localhost:3000',
+    'http://localhost:4000',
+    'http://localhost:4200',
+    'http://localhost:80',
+    'http://localhost:8080',
+  ]
+  app.enableCors({
+    origin: whitelist
   });
+  await UBServiceFactory.create(app)
+    .withGrpc()
+    .withValidation({
+      skipMissingProperties: false,
+      forbidUnknownValues: true,
+      stopAtFirstError: true,
+      enableDebugMessages: true,
+    })
+    .withSession(true)
+    .withPoweredBy()
+    .withPrefix('api/v1')
+    .withSwagger()
+    .start();
 }
 
-bootstrap();
+(async () => await bootstrap())();

@@ -1,0 +1,11 @@
+
+syntax = "proto3";
+package lts.travel;
+
+message Message {
+  string body = 1;
+}
+
+service TravelService {
+  rpc SayHello(Message) returns (Message) {}
+}
