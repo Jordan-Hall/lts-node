@@ -24,6 +24,14 @@
       "language": "typescript",
       "name": "billing",
       "port": 3002
+    },
+    "fileServer": {
+      "type": "svc",
+      "docker": true,
+      "kubernetes": false,
+      "language": "typescript",
+      "name": "fileServer",
+      "port": 3003
     }
   }
 }
