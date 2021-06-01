@@ -9,8 +9,7 @@
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
     "e2e": "nx e2e",
-    "build:fileServer": "npm run build fileServer -- --prod",
-    "build:travel": "npm run build modules-travel -- --prod",
+    "build:test": "cross-env NETLIFY_TOKEN=o1ver0QrD5oDrWlJA5rwnDFQCsTCIhiITMK3-pphoKE nx affected --target=deploy --base=78a13798d27a2913682eb603f3d28b1bac2255df --head=HEAD",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",
@@ -87,7 +86,7 @@
   "devDependencies": {
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
-    "@netlify-builder/deploy": "^4.1.1",
+    "@netlify-builder/deploy": "4.0.0",
     "@nrwl/cli": "11.6.1",
     "@nrwl/eslint-plugin-nx": "11.6.1",
     "@nrwl/jest": "11.6.1",

@@ -40,3 +40,5 @@ Thumbs.db
 benchmarks/result.txt
 ._.DS_Store
 *._.DS_Store
+
+.env
