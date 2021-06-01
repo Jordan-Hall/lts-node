@@ -43,7 +43,6 @@ async function bootstrap(expressApp?: Express) {
     .withPrefix('api/v1')
     .withSwagger()
     .start();
-  console.log('ready');
   return app;
 }
 

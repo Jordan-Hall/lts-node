@@ -30,10 +30,13 @@ jobs:
       - run:
           command: yarn affected:build --base=<< pipeline.git.base_revision >> --head=HEAD
           no_output_timeout: 1h
+      - run:
+          command: export NETLIFY_AUTH_TOKEN=${NETLIFY_AUTH_TOKEN}
 
       - run:
           command: yarn affected --target=deploy --base=<< pipeline.git.base_revision >> --head=HEAD
           no_output_timeout: 1h
+          
 
 workflows:
   build-test-and-deploy:
