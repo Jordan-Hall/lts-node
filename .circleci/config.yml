@@ -5,11 +5,13 @@ orbs:
 
 jobs:
   build-test-and-deploy:
-    executor:
-      name: node/default
-      tag: '14.17.0'
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: arm.medium
     steps:
       - checkout
+      - node/default:
+          tag: '14.17.0'
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
