@@ -7,11 +7,14 @@ jobs:
   build-test-and-deploy:
     machine:
       image: ubuntu-2004:202101-01
-    resource_class: arm.medium
+    resource_class: arm.large
     steps:
       - checkout
-      - node/default:
-          tag: '14.17.0'
+      - node/install:
+          install-npm: false
+          node-version: 14.17.0
+      - node/install-yarn:
+          version: 1.22.4
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
@@ -24,8 +27,13 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-      - run: yarn affected:build --base=<< pipeline.git.base_revision >> --head=HEAD
-      - run: yarn affected --target=deploy --base=<< pipeline.git.base_revision >> --head=HEAD
+      - run:
+          command: yarn affected:build --base=<< pipeline.git.base_revision >> --head=HEAD
+          no_output_timeout: 1h
+
+      - run:
+          command: yarn affected --target=deploy --base=<< pipeline.git.base_revision >> --head=HEAD
+          no_output_timeout: 1h
 
 workflows:
   build-test-and-deploy:
