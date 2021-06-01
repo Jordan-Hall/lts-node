@@ -17,31 +17,6 @@ import * as path from 'path';
         file: true,
       },
     }),
-    // CloudModule.forRoot({
-    //   registry: {
-    //     discoverer: 'consul',
-    //     service: {
-    //       id: 'adv-travel',
-    //       port: 3332,
-    //       address: 'https://consul-cluster.consul.6d7be6b7-7f0a-4d38-b0f9-2b545f2c4e05.aws.hashicorp.cloud',
-    //       name: 'adv-travel',
-    //     },
-    //   },
-    // }),
-    // ConfigModule.forRoot({
-    //   load: [
-    //     {
-    //       source: ConfigSource.Consul,
-    //       key: 'consul-cluster',
-    //     },
-    //   ],
-    // }),
-    // ConsulModule.forRoot({
-    //   host: 'https://consul-cluster.consul.6d7be6b7-7f0a-4d38-b0f9-2b545f2c4e05.aws.hashicorp.cloud',
-    //   port: '8500',
-    //   debug: true,
-    //   aclToken: 'b3cd3358-ee51-3b22-98e5-ea5537aa5f24'
-    // } as ConsulModuleOptions),
     RedisModule.forRoot({
       redisOptions: {
         host: '35.178.212.41',
@@ -49,15 +24,11 @@ import * as path from 'path';
         db: 0,
       },
     }),
-    // ClientModule.forRoot(),
     EtcdModule.forRoot({
       etcdOptions: {
         hosts: '18.134.241.48:2379',
       },
     }),
-    // LoadBalancerModule.forRoot({
-    //   services: [{ strategy: 'RoundRobinStrategy', name: 'travel' }],
-    // }),
     BrakesModule.forRoot(),
   ],
 })
