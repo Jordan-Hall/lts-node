@@ -15,9 +15,15 @@ import { GridFsMulterConfigService } from './multer-config.service';
   imports: [
     BootstrapModule.forRoot({
       enableEnv: true,
-      filePath: path.resolve(__dirname, './assets/bootstrap.yaml'),
+      filePath: path.resolve(__dirname, 'assets/bootstrap.yaml'),
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/files_db'),
+    MongooseModule.forRoot(
+      'mongodb+srv://dbUser:nOSLjiJZENzDbQo2@lts-cluser.4lnve.mongodb.net/file-upload?retryWrites=true&w=majority',
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }
+    ),
     MulterModule.registerAsync({
       useClass: GridFsMulterConfigService,
     }),

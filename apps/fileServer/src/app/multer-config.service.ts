@@ -9,7 +9,11 @@ export class GridFsMulterConfigService implements MulterOptionsFactory {
 	gridFsStorage: GridFsStorage;
 	constructor(@InjectConnection() private readonly connection: Connection) {
 		this.gridFsStorage = new GridFsStorage({
-			url: 'mongodb://localhost:27017/files_db',
+			options: {
+				useNewUrlParser: true,
+				useUnifiedTopology: true
+			},
+			url: 'mongodb+srv://dbUser:nOSLjiJZENzDbQo2@lts-cluser.4lnve.mongodb.net/file-upload?retryWrites=true&w=majority',
 			file: (req, file) => {
 				return new Promise((resolve, reject) => {
 					const filename = file.originalname.trim();

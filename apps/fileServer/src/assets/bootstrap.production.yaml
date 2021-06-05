@@ -1,2 +1,10 @@
 name: fileServer
 port: 5001
+
+
+clients:
+  redis:
+    useCluster: false
+    redisOptions:
+      host: '35.178.212.41'
+      port: 6379

@@ -32,6 +32,14 @@
       "language": "typescript",
       "name": "fileServer",
       "port": 3003
+    },
+    "modules-travel": {
+      "type": "svc",
+      "docker": true,
+      "kubernetes": false,
+      "language": "typescript",
+      "name": "fileServer",
+      "port": 3004
     }
   }
 }

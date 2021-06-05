@@ -1,0 +1,6 @@
+datastore:
+  databaseName: "travel_db"
+  databaseUrl: "mongodb+srv://dbUser:nOSLjiJZENzDbQo2@lts-cluser.4lnve.mongodb.net/{{datastore.dbName}}"
+  redisUrl: "redis://localhost:6379"
+  retryAttempts: 6
+  retryDelays: 4

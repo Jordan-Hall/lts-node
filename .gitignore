@@ -42,3 +42,5 @@ benchmarks/result.txt
 *._.DS_Store
 
 .env
+
+.vercel

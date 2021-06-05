@@ -210,7 +210,7 @@
       "projectType": "application",
       "targets": {
         "deploy": {
-          "builder": "@netlify-builder/deploy:deploy",
+          "executor": "@netlify-builder/deploy:deploy",
           "options": {
             "outputPath": "dist/apps/fileServer",
             "siteId": "f19aff87-7bdd-4d16-b9c8-9f8ced79df7e"
@@ -275,7 +275,7 @@
       "projectType": "application",
       "targets": {
         "deploy": {
-          "builder": "@netlify-builder/deploy:deploy",
+          "executor": "@netlify-builder/deploy:deploy",
           "options": {
             "outputPath": "dist/apps/modules/travel",
             "siteId": "50cf4a5c-10b5-45d5-807c-8e6f1cff3e1b"
