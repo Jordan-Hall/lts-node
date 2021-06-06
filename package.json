@@ -107,6 +107,7 @@
     "@typescript-eslint/parser": "4.3.0",
     "@ultimate-backend/cli": "^0.8.1",
     "@ultimate-backend/plugin-nx": "^0.8.1",
+    "cross-env": "^7.0.3",
     "dotenv": "8.2.0",
     "eslint": "7.10.0",
     "eslint-config-prettier": "8.1.0",
