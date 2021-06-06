@@ -4,19 +4,32 @@ import { PackageService } from './package.service';
 import { PackageResolver } from './package.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PackageController } from './package.controller';
-import { DatabaseTypeOrmService } from '../database/database.service';
-import { DatabaseResolverModule } from '../database/database.module';
+
 import { ConfigModule } from '@ultimate-backend/config';
+import {
+	OutputData,
+	Overview,
+	IncludesAndExcludes,
+	FaqItem,
+	ItineraryItem,
+	Itinerary,
+	TravelPackages
+} from './models/packages.model';
 
 @Module({
-	providers: [PackageService, PackageResolver],
-	controllers: [PackageController],
 	imports: [
 		ConfigModule,
-		TypeOrmModule.forRootAsync({
-			imports: [DatabaseResolverModule],
-			useExisting: DatabaseTypeOrmService,
-		})
-	]
+		TypeOrmModule.forFeature([
+			OutputData,
+			Overview,
+			IncludesAndExcludes,
+			FaqItem,
+			ItineraryItem,
+			Itinerary,
+			TravelPackages
+		]),
+	],
+	providers: [PackageService, PackageResolver],
+	controllers: [PackageController],
 })
 export class PacakageModule { }

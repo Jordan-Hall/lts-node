@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-
+import { IsDefined } from 'class-validator';
 
 export type BlockToolData<T extends object = any> = T;
 
@@ -240,6 +240,7 @@ export class CreatePackageRequest {
 		nullable: false,
 	})
 	@ApiProperty()
+	@IsDefined()
 	overview: OverviewInputRequest;
 
 	/**
@@ -250,6 +251,7 @@ export class CreatePackageRequest {
 		nullable: false,
 	})
 	@ApiProperty()
+
 	includeExcludes: IncludesAndExcludesInputRequest;
 
 
@@ -261,6 +263,7 @@ export class CreatePackageRequest {
 		nullable: true,
 	})
 	@ApiProperty()
+	@IsDefined()
 	faqs: FaqItemInputRequest[];
 
 
@@ -272,7 +275,6 @@ export class CreatePackageRequest {
 		nullable: true,
 	})
 	@ApiProperty()
+	@IsDefined()
 	itinerary: ItineraryInputRequest;
-
-
 }

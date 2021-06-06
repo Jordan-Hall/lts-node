@@ -14,6 +14,9 @@ import { ConfigModule, ConfigSource } from '@ultimate-backend/config';
 import { PermissionsModule } from '@ultimate-backend/permissions';
 import * as path from 'path';
 import { PacakageModule } from './packages/packages.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DatabaseTypeOrmService } from './database/database.service';
+import { DatabaseResolverModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -31,6 +34,10 @@ import { PacakageModule } from './packages/packages.module';
           enableCache: true,
         },
       ],
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [DatabaseResolverModule],
+      useExisting: DatabaseTypeOrmService,
     }),
     // GraphQLModule.forRoot({
     //   autoSchemaFile: true,

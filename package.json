@@ -60,6 +60,8 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "bull": "^3.22.5",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
     "graphql": "^15.5.0",
     "graphql-tools": "^4.0.8",
     "js-base64": "^3.6.1",
