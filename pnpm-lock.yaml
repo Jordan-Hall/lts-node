@@ -36,6 +36,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': 4.3.0
   '@typescript-eslint/parser': 4.3.0
   '@ultimate-backend/bootstrap': ^0.8.1
+  '@ultimate-backend/brakes': ^0.10.1
   '@ultimate-backend/cli': ^0.8.1
   '@ultimate-backend/client': ^0.8.1
   '@ultimate-backend/cloud': ^0.8.1
@@ -164,6 +165,7 @@ devDependencies:
   '@types/pg': 7.14.11
   '@typescript-eslint/eslint-plugin': 4.3.0_994d979c051549b216df6838c5973d27
   '@typescript-eslint/parser': 4.3.0_eslint@7.10.0+typescript@4.0.7
+  '@ultimate-backend/brakes': 0.10.1_70b9cb8466d4e99d08d6dbcbe914d3b7
   '@ultimate-backend/cli': 0.8.4_c23d7728c8aeddd3f5caa1d850c3247d
   '@ultimate-backend/plugin-nx': 0.8.4_c23d7728c8aeddd3f5caa1d850c3247d
   cross-env: 7.0.3
@@ -1092,7 +1094,6 @@ packages:
       uuid: 8.3.2
     transitivePeerDependencies:
       - debug
-    dev: false
 
   /@nestjs/common/7.6.17_db4a64923aa9dac9dc251e40e55be2f2:
     resolution: {integrity: sha512-RHvD32FxfV7yDWX9GPmn0ZSv7ka5kLeVamU5ZpoXSTUjkGqWFt3MTyIP+HUQD2778kDqT+CgEtVJ1fxDG5Oh9g==}
@@ -2549,6 +2550,20 @@ packages:
       - class-transformer
       - class-validator
       - debug
+
+  /@ultimate-backend/brakes/0.10.1_70b9cb8466d4e99d08d6dbcbe914d3b7:
+    resolution: {integrity: sha512-uOawSYW35WS49RYjFZEPQxXu7kd0BGE7onn24B0U2/O4sGbOKFamm6S9ZaWE+PD1egSYRjna7jlKLbaSFeDVRg==}
+    dependencies:
+      '@nestjs/common': 7.6.17_70b9cb8466d4e99d08d6dbcbe914d3b7
+      opossum: 5.1.3
+    transitivePeerDependencies:
+      - cache-manager
+      - class-transformer
+      - class-validator
+      - debug
+      - reflect-metadata
+      - rxjs
+    dev: true
 
   /@ultimate-backend/brakes/0.8.4_db4a64923aa9dac9dc251e40e55be2f2:
     resolution: {integrity: sha512-TGvvxFx7ooVew11cnI2x+w4/S9dNwEL2gZA+jhd9SN1b4jIsInzTLVkS4CqOklYfFCJ3dwutrnseV26d1kXRbg==}
@@ -9781,7 +9796,6 @@ packages:
   /opossum/5.1.3:
     resolution: {integrity: sha512-2FxRJIREHSvL37WvTWbHgBPYKXA4+jAGthwGc0LQFeoiQBUIFKd3f/lJGUAc1lnhzZc5PNhtK0YPurBqKbpCqA==}
     engines: {node: ^15 || ^14 || ^12 || ^10}
-    dev: false
 
   /optional-require/1.0.3:
     resolution: {integrity: sha512-RV2Zp2MY2aeYK5G+B/Sps8lW5NHAzE5QClbFP15j+PWmP+T9PxlJXBOOLoSAdgwFvS4t0aMR4vpedMkbHfh0nA==}
