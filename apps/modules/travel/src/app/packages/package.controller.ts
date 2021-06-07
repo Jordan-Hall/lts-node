@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Delete, Param, Body, Put  } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Put, Param, Body, DefaultValuePipe, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreatePackageRequest } from './dto/create-package.model';
 import { PackageService } from './package.service';
 import { TravelPackages } from './models/packages.model';
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 @ApiTags('packages')
 @Controller('packages')
@@ -18,8 +19,19 @@ export class PackageController {
 	}
 
 	@Get()
-	getAll(): Promise<TravelPackages[]> {
-		return this.packageService.findAll();
+	getAll(
+		@Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+		@Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit= 10,
+	): Promise<Pagination<TravelPackages>> {
+		return this.packageService.findAll({
+			limit,
+			page,
+			route: 'http://localhost:5002/api/v1/packages',
+			routingLabels: {
+				limitLabel: 'limit',
+				pageLabel: 'page'
+			}
+		});
 	}
 
 	@Get(':id')

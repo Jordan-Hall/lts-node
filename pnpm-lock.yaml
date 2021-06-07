@@ -71,6 +71,7 @@ specifiers:
   multer-gridfs-storage: ^4.2.0
   mysql: ^2.18.1
   mysql2: ^2.2.5
+  nestjs-typeorm-paginate: ^2.5.2
   otplib: ^12.0.1
   passport-jwt: ^4.0.0
   pg: ^8.6.0
@@ -173,6 +174,7 @@ devDependencies:
   eslint: 7.10.0
   eslint-config-prettier: 8.1.0_eslint@7.10.0
   jest: 26.2.2_ts-node@9.1.1
+  nestjs-typeorm-paginate: 2.5.2_048268594d86ed83d9b64abb4065f7b1
   prettier: 2.2.1
   ts-jest: 26.5.5_jest@26.2.2+typescript@4.0.7
   ts-node: 9.1.1_typescript@4.0.7
@@ -9339,6 +9341,16 @@ packages:
 
   /nested-error-stacks/2.1.0:
     resolution: {integrity: sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==}
+    dev: true
+
+  /nestjs-typeorm-paginate/2.5.2_048268594d86ed83d9b64abb4065f7b1:
+    resolution: {integrity: sha512-I+TKqXTMxtLpoBCTEAOJ3HCp6kbOToBLg5Rym6XDWwrVypTrUiMZC40FdoW7nTymuV2KVnR3ms4zjduicRISEQ==}
+    peerDependencies:
+      '@nestjs/common': ^6.1.1 || ^5.6.2 || ^7.0.0
+      typeorm: ^0.2.12
+    dependencies:
+      '@nestjs/common': 7.6.17_70b9cb8466d4e99d08d6dbcbe914d3b7
+      typeorm: 0.2.34
     dev: true
 
   /netlify/6.1.29:
