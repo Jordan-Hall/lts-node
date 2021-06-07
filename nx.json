@@ -53,6 +53,9 @@
         "modules",
         "travel"
       ]
+    },
+    "types-editorjs": {
+      "tags": []
     }
   }
 }

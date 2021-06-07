@@ -333,6 +333,46 @@
           }
         }
       }
+    },
+    "types-editorjs": {
+      "root": "libs/types/editorjs",
+      "sourceRoot": "libs/types/editorjs/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/libs/types/editorjs",
+            "tsConfig": "libs/types/editorjs/tsconfig.lib.json",
+            "packageJson": "libs/types/editorjs/package.json",
+            "main": "libs/types/editorjs/src/index.ts",
+            "assets": [
+              "libs/types/editorjs/*.md"
+            ]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/types/editorjs/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/types/editorjs"
+          ],
+          "options": {
+            "jestConfig": "libs/types/editorjs/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

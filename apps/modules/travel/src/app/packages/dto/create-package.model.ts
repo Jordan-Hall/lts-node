@@ -1,55 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined } from 'class-validator';
-
-export type BlockToolData<T extends object = any> = T;
-
-@InputType('OutputBlockDataInput', {
-	description: 'EditorJs interface OutputBlockData',
-})
-export class OutputBlockData {
-
-	@Field({
-		description: 'Too type',
-	})
-	@ApiProperty()
-	type: string;
-
-
-	@Field({
-		description: 'Saved Block data',
-	})
-	@ApiProperty()
-	data: BlockToolData;
-}
-
-@InputType('OutputDataInput', {
-	description: 'EditorJs interface',
-})
-export class OutputData {
-
-	@Field({
-		description: 'Title of the package and will be used for the slug',
-		nullable: true,
-	})
-	@ApiProperty()
-	version?: string;
-
-
-	@Field({
-		description: 'Title of the package and will be used for the slug',
-		nullable: true,
-	})
-	@ApiProperty()
-	time?: number;
-
-	/**
-	 * Saved Blocks
-	 */
-	blocks: OutputBlockData[];
-}
-
-
+import { OutputData } from '@lts/editorjs-outputdata';
 /**
  * @description This is the overview input request type
  *
@@ -75,6 +27,25 @@ export class OverviewInputRequest {
 	})
 	@ApiProperty()
 	fromPrice: number;
+
+	/**
+	 * @description What is the Experiences this package contains
+	 */
+	@Field({
+		description: 'What is the Experiences this package contains',
+	})
+	@ApiProperty()
+	linkExperiences: string[]
+
+
+	/**
+	 * @description What is the Destination this package contains
+	 */
+	@Field({
+		description: 'What is the Destination this package contains',
+	})
+	@ApiProperty()
+	linkDestinations: string[]
 
 	/**
 	 * @description This is the description. Currently we use EditorJs output

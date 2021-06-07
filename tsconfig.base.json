@@ -20,6 +20,9 @@
     "paths": {
       "@ub-boilerplate/common": [
         "libs/common/src/index.ts"
+      ],
+      "@lts/editorjs-outputdata": [
+        "libs/types/editorjs/src/index.ts"
       ]
     }
   },

@@ -1,12 +1,5 @@
 import { Entity, ObjectID, ObjectIdColumn, Column,  } from "typeorm";
-
-export type BlockToolData<T extends object = any> = T;
-
-export class OutputBlockData {
-	type: string;
-	data: BlockToolData;
-}
-
+import { OutputBlockData } from '@lts/editorjs-outputdata';
 @Entity()
 export class OutputData {
 	@ObjectIdColumn()
@@ -32,6 +25,11 @@ export class Overview {
 
 	@Column()
 	fromPrice: number;
+
+	@Column()
+	linkExperiences: string[]
+	@Column()
+	linkDestinations: string[]
 
 	@Column(() => OutputData)
 	description: OutputData

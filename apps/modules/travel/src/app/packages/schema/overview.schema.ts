@@ -12,6 +12,14 @@ export class OverviewSchema {
 	@Field((type) => Int)
 	fromPrice: string;
 
+	@FilterableField()
+	@Field()
+	linkExperiences: string[]
+
+	@FilterableField()
+	@Field()
+	linkDestinations: string[]
+
 	@Field({ nullable: true })
 	description?: Record<string, any>
 
