@@ -32,4 +32,4 @@ import {
 	providers: [PackageService, PackageResolver],
 	controllers: [PackageController],
 })
-export class PacakageModule { }
+export class PackageModule { }

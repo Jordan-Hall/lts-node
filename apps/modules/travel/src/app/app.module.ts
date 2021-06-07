@@ -13,14 +13,18 @@ import { BootstrapModule } from '@ultimate-backend/bootstrap';
 import { ConfigModule, ConfigSource } from '@ultimate-backend/config';
 // import { PermissionsModule } from '@ultimate-backend/permissions';
 import * as path from 'path';
-import { PacakageModule } from './packages/packages.module';
+import { PackageModule } from './packages/packages.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseTypeOrmService } from './database/database.service';
 import { DatabaseResolverModule } from './database/database.module';
+import { ExperienceModule } from './experience/experience.module';
+import { DestinationModule } from './destination/destination.module';
 
 @Module({
   imports: [
-    PacakageModule,
+    PackageModule,
+    DestinationModule,
+    ExperienceModule,
     BootstrapModule.forRoot({
       enableEnv: true,
       filePath: path.resolve(__dirname, './assets/bootstrap.yaml'),

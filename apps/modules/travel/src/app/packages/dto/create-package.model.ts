@@ -215,10 +215,10 @@ export class CreatePackageRequest {
 	overview: OverviewInputRequest;
 
 	/**
-	 * @description What does the pacakage include and excludes
+	 * @description What does the package include and excludes
 	 */
 	@Field({
-		description: 'What does the pacakage include and excludes',
+		description: 'What does the package include and excludes',
 		nullable: false,
 	})
 	@ApiProperty()
