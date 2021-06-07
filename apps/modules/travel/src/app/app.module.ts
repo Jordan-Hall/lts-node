@@ -1,17 +1,17 @@
 
 import { Module } from '@nestjs/common';
-import { CloudModule } from '@ultimate-backend/cloud';
+// import { CloudModule } from '@ultimate-backend/cloud';
 import { RedisModule } from '@ultimate-backend/redis';
-import { ConsulModule } from '@ultimate-backend/consul';
-import { ClientModule } from '@ultimate-backend/client';
-import { LoadBalancerModule } from '@ultimate-backend/loadbalancer';
-import { BrakesModule } from '@ultimate-backend/brakes';
-import { GraphQLModule } from '@nestjs/graphql';
+// import { ConsulModule } from '@ultimate-backend/consul';
+// import { ClientModule } from '@ultimate-backend/client';
+// import { LoadBalancerModule } from '@ultimate-backend/loadbalancer';
+// import { BrakesModule } from '@ultimate-backend/brakes';
+// import { GraphQLModule } from '@nestjs/graphql';
 import { BootstrapModule } from '@ultimate-backend/bootstrap';
-import { EtcdModule } from '@ultimate-backend/etcd';
+// import { EtcdModule } from '@ultimate-backend/etcd';
 
 import { ConfigModule, ConfigSource } from '@ultimate-backend/config';
-import { PermissionsModule } from '@ultimate-backend/permissions';
+// import { PermissionsModule } from '@ultimate-backend/permissions';
 import * as path from 'path';
 import { PacakageModule } from './packages/packages.module';
 import { TypeOrmModule } from '@nestjs/typeorm';

@@ -6,10 +6,10 @@ import { ItinerarySchema } from './Itinerary.schema';
 import { OverviewSchema } from './overview.schema';
 
 @ObjectType('Package')
-export class PackageSchema extends NodeSchema<number> {
+export class PackageSchema extends NodeSchema<string> {
 
 	@Field((type) => Int)
-	id: number;
+	id: string;
 
 	@FilterableField((returns) => OverviewSchema)
 	@Field((type) => OverviewSchema)

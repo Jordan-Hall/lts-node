@@ -46,6 +46,23 @@ export class CreateDestinationRequest {
 
 
 	/**
+	 * @description is they a parentId
+	 */
+	@Field({
+		description: 'Does this destination have a parent destination',
+	})
+	@ApiProperty({
+		enum: [
+			"Continent",
+			"Country",
+			"City",
+		]
+	})
+	@IsDefined()
+	type: 'Continent' | 'Country' | 'City'
+
+
+	/**
 	 * @description Whats the destination description
 	 */
 	@Field({

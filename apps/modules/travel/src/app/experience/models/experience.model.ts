@@ -2,7 +2,7 @@ import { Entity, ObjectID, ObjectIdColumn, Column, ManyToOne, JoinTable } from "
 import { OutputBlockDataModel } from '@lts/editorjs-outputdata';
 
 @Entity()
-export class TravelDestination {
+export class TravelExperience {
 	@ObjectIdColumn()
 	id: ObjectID;
 
@@ -13,12 +13,9 @@ export class TravelDestination {
 	slug: string;
 
 	@Column()
-	destination: OutputBlockDataModel;
+	experience: OutputBlockDataModel;
 
-	@Column()
-	type: 'Continent' | 'Country' | 'City'
-
-	@ManyToOne(() => TravelDestination, dest => dest.id)
+	@ManyToOne(() => TravelExperience, dest => dest.id)
 	@JoinTable()
-	parentId: TravelDestination;
+	parentId: TravelExperience;
 }

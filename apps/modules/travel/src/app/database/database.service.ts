@@ -16,6 +16,8 @@ import {
 	Itinerary,
 	TravelPackages
 } from '../packages/models/packages.model';
+import { TravelDestination } from '../destination/models/destination.model';
+import { TravelExperience } from '../experience/models/experience.model';
 
 @Injectable()
 export class DatabaseTypeOrmService implements TypeOrmOptionsFactory  {
@@ -27,8 +29,6 @@ export class DatabaseTypeOrmService implements TypeOrmOptionsFactory  {
 	constructor(private readonly store: ConfigStore) {}
 
 	createTypeOrmOptions(): TypeOrmModuleOptions | Promise<TypeOrmModuleOptions> {
-		console.log('config', this.config);
-		console.log('store', this.store);
 		const config = (this.config ?? this.store.get('datastore') ?? environment) as DatastoreConfig;
 		return {
 			type: 'mongodb',
@@ -45,6 +45,8 @@ export class DatabaseTypeOrmService implements TypeOrmOptionsFactory  {
 				ItineraryItem,
 				Itinerary,
 				TravelPackages,
+				TravelDestination,
+				TravelExperience
 			],
 			synchronize: true,
 			useUnifiedTopology: true,
