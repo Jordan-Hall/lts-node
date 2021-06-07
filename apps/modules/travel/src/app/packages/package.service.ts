@@ -25,7 +25,10 @@ export class PackageService {
 
 	create(createPackageRequest: CreatePackageRequest): Promise<TravelPackages> {
 		const newPackage = CreatePackageMapper.toEntity(createPackageRequest)
-
 		return this.travelPackagesRepository.save(newPackage);
+	}
+
+	update(id: string, createPackageRequest: Partial<CreatePackageRequest>) {
+		return this.travelPackagesRepository.update(id, createPackageRequest);
 	}
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Param, Body  } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body, Put  } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreatePackageRequest } from './dto/create-package.model';
 import { PackageService } from './package.service';
@@ -25,6 +25,11 @@ export class PackageController {
 	@Get(':id')
 	findOne(@Param('id') id: string): Promise<TravelPackages> {
 		return this.packageService.findOne(id);
+	}
+
+	@Put(':id')
+	update(@Param('id') id: string, @Body() body: Partial<CreatePackageRequest>) {
+		return this.packageService.update(id, body);
 	}
 
 	@Delete(':id')
