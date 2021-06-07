@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined } from 'class-validator';
 import { OutputData } from '@lts/editorjs-outputdata';
-import { ObjectID } from '@nestjs/typeorm'
+import { ObjectID } from 'typeorm';
 
 /**
  * @description This is the input or data transfer object for creating an package
