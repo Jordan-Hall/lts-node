@@ -13,7 +13,7 @@ export class TravelExperience {
 	slug: string;
 
 	@Column()
-	experience: OutputBlockDataModel;
+	description: OutputBlockDataModel;
 
 	@ManyToOne(() => TravelExperience, dest => dest.id)
 	@JoinTable()

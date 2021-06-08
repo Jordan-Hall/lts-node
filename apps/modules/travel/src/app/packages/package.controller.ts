@@ -20,13 +20,14 @@ export class PackageController {
 
 	@Get()
 	getAll(
+		@Query() dtoQuery?: TravelPackages,
 		@Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
 		@Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit= 10,
 	): Promise<Pagination<TravelPackages>> {
 		return this.packageService.findAll({
 			limit,
 			page,
-			route: 'http://localhost:5002/api/v1/packages',
+			route: '/api/v1/packages',
 			routingLabels: {
 				limitLabel: 'limit',
 				pageLabel: 'page'

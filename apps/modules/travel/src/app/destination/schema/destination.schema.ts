@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { FilterableField, NodeSchema} from '@ultimate-backend/core';
 import { OutputBlockDataModel } from '@lts/editorjs-outputdata';
+import { DestinationType } from '../enums/destination-type';
 
 @ObjectType('DestinationSchema')
 export class DestinationSchema extends NodeSchema<string> {
@@ -17,11 +18,11 @@ export class DestinationSchema extends NodeSchema<string> {
 	slug: string;
 
 	@Field()
-	destination: OutputBlockDataModel;
+	description: OutputBlockDataModel;
 
 	@FilterableField()
 	@Field()
-	type: 'Continent' | 'Country' | 'City'
+	type: DestinationType;
 
 	@FilterableField((returns) => DestinationSchema)
 	@Field((type) => DestinationSchema)

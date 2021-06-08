@@ -26,7 +26,7 @@ export class DestinationController {
 		return this.destinationService.findAll({
 			limit,
 			page,
-			route: 'http://localhost:5002/api/v1/destinations',
+			route: '/api/v1/destinations',
 			routingLabels: {
 				limitLabel: 'limit',
 				pageLabel: 'page'

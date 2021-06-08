@@ -1,4 +1,4 @@
-import { Entity, ObjectID, ObjectIdColumn, Column,  } from "typeorm";
+import { Entity, ObjectID, ObjectIdColumn, Column, DeleteDateColumn, CreateDateColumn, UpdateDateColumn  } from "typeorm";
 import { OutputBlockData } from '@lts/editorjs-outputdata';
 @Entity()
 export class OutputData {
@@ -105,4 +105,13 @@ export class TravelPackages {
 
 	@Column(() => Itinerary)
 	itinerary: Itinerary;
+
+	@CreateDateColumn()
+	created!: Date;
+
+	@UpdateDateColumn()
+	updated!: Date;
+
+	@DeleteDateColumn()
+	deletedAt?: Date;
 }

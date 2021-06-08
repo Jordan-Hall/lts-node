@@ -1,5 +1,6 @@
 import { Entity, ObjectID, ObjectIdColumn, Column, ManyToOne, JoinTable } from "typeorm";
 import { OutputBlockDataModel } from '@lts/editorjs-outputdata';
+import { DestinationType } from "../enums/destination-type";
 
 @Entity()
 export class TravelDestination {
@@ -13,10 +14,10 @@ export class TravelDestination {
 	slug: string;
 
 	@Column()
-	destination: OutputBlockDataModel;
+	description: OutputBlockDataModel;
 
 	@Column()
-	type: 'Continent' | 'Country' | 'City'
+	type: DestinationType
 
 	@ManyToOne(() => TravelDestination, dest => dest.id)
 	@JoinTable()

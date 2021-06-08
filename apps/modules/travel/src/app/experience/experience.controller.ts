@@ -26,7 +26,7 @@ export class ExperienceController {
 		return this.experienceService.findAll({
 			limit,
 			page,
-			route: 'http://localhost:5002/api/v1/experiences',
+			route: '/api/v1/experiences',
 			routingLabels: {
 				limitLabel: 'limit',
 				pageLabel: 'page'

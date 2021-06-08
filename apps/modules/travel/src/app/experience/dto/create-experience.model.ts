@@ -52,5 +52,5 @@ export class CreateExperienceRequest {
 	})
 	@ApiProperty()
 	@IsDefined()
-	experience?: OutputData;
+	description?: OutputData;
 }

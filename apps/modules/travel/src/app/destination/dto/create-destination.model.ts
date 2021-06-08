@@ -3,6 +3,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined } from 'class-validator';
 import { OutputData } from '@lts/editorjs-outputdata';
 import { ObjectID } from 'typeorm';
+import { DestinationType } from '../enums/destination-type';
+
 
 /**
  * @description This is the input or data transfer object for creating an package
@@ -41,7 +43,6 @@ export class CreateDestinationRequest {
 		description: 'Does this destination have a parent destination',
 	})
 	@ApiProperty()
-	@IsDefined()
 	parentId?: ObjectID;
 
 
@@ -52,14 +53,10 @@ export class CreateDestinationRequest {
 		description: 'Does this destination have a parent destination',
 	})
 	@ApiProperty({
-		enum: [
-			"Continent",
-			"Country",
-			"City",
-		]
+		enum: DestinationType
 	})
 	@IsDefined()
-	type: 'Continent' | 'Country' | 'City'
+	type: DestinationType
 
 
 	/**
@@ -70,5 +67,5 @@ export class CreateDestinationRequest {
 	})
 	@ApiProperty()
 	@IsDefined()
-	destination?: OutputData;
+	description?: OutputData;
 }

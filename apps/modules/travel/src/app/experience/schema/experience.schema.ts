@@ -17,7 +17,7 @@ export class ExperienceSchema extends NodeSchema<string> {
 	slug: string;
 
 	@Field()
-	experience: OutputBlockDataModel;
+	description: OutputBlockDataModel;
 
 	@FilterableField((returns) => ExperienceSchema)
 	@Field((type) => ExperienceSchema)
