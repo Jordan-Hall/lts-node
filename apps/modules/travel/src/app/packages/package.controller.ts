@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Put, Param, Body, DefaultValuePipe, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Put, Param, Body, DefaultValuePipe, ParseIntPipe, Query, Optional } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreatePackageRequest } from './dto/create-package.model';
 import { PackageService } from './package.service';
@@ -20,9 +20,9 @@ export class PackageController {
 
 	@Get()
 	getAll(
-		@Query() dtoQuery?: TravelPackages,
 		@Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
-		@Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit= 10,
+		@Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+		@Optional() @Query() dtoQuery?: Partial<TravelPackages>,
 	): Promise<Pagination<TravelPackages>> {
 		return this.packageService.findAll({
 			limit,
