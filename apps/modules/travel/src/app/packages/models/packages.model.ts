@@ -74,6 +74,31 @@ export class ItineraryItem {
 	dateTime?: Date;
 }
 
+
+@Entity()
+export class DownloadItem {
+	@ObjectIdColumn()
+	id?: ObjectID;
+
+	@Column()
+	description: string;
+
+	@Column()
+	fileId: string | number;
+}
+
+@Entity()
+export class GalleryItem {
+	@ObjectIdColumn()
+	id?: ObjectID;
+
+	@Column()
+	description: string;
+
+	@Column()
+	imageId: string | number;
+}
+
 @Entity()
 export class Itinerary {
 	@ObjectIdColumn()
@@ -102,6 +127,12 @@ export class TravelPackages {
 
 	@Column(() => FaqItem)
 	faqs: FaqItem[];
+
+	@Column(() => DownloadItem)
+	downloads: DownloadItem[];
+
+	@Column(() => GalleryItem)
+	Gallery: GalleryItem[];
 
 	@Column(() => Itinerary)
 	itinerary: Itinerary;

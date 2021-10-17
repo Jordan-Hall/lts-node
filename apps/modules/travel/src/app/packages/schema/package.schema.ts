@@ -1,6 +1,8 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { FilterableField, NodeSchema } from '@ultimate-backend/core';
+import { DownloadSchema } from './download.schema';
 import { FAQSSchema } from './faqs.schema';
+import { GallerySchema } from './gallery.schema';
 import { IncludeExcludeSchema } from './includes-and-excludes.schema';
 import { ItinerarySchema } from './Itinerary.schema';
 import { OverviewSchema } from './overview.schema';
@@ -8,24 +10,31 @@ import { OverviewSchema } from './overview.schema';
 @ObjectType('Package')
 export class PackageSchema extends NodeSchema<string> {
 
-	@Field((type) => Int)
+	@Field(() => Int)
 	id: string;
 
-	@FilterableField((returns) => OverviewSchema)
-	@Field((type) => OverviewSchema)
+	@FilterableField(() => OverviewSchema)
+	@Field(() => OverviewSchema)
 	overview: OverviewSchema;
 
-	@FilterableField((returns) => IncludeExcludeSchema)
-	@Field((type) => IncludeExcludeSchema)
+	@FilterableField(() => IncludeExcludeSchema)
+	@Field(() => IncludeExcludeSchema)
 	includeExcludes: IncludeExcludeSchema;
 
-	@FilterableField((returns) => FAQSSchema)
-	@Field((type) => [FAQSSchema])
+	@FilterableField(() => FAQSSchema)
+	@Field(() => [FAQSSchema])
 	faqs: FAQSSchema[];
 
+	@FilterableField(() => DownloadSchema)
+	@Field(() => [DownloadSchema])
+	download: DownloadSchema[];
 
-	@FilterableField((returns) => ItinerarySchema)
-	@Field((type) => ItinerarySchema)
+	@FilterableField(() => GallerySchema)
+	@Field(() => [GallerySchema])
+	gallery: GallerySchema[];
+
+	@FilterableField(() => ItinerarySchema)
+	@Field(() => ItinerarySchema)
 	itinerary: ItinerarySchema;
 
 }
