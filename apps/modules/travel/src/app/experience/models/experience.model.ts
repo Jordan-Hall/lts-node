@@ -18,4 +18,7 @@ export class TravelExperience {
 	@ManyToOne(() => TravelExperience, dest => dest.id)
 	@JoinTable()
 	parentId: TravelExperience;
+
+	@Column()
+	imageId: string | number;
 }

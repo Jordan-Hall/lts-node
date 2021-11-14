@@ -53,4 +53,14 @@ export class CreateExperienceRequest {
 	@ApiProperty()
 	@IsDefined()
 	description?: OutputData;
+
+	/**
+	 * @description Whats the experience Image ID
+	 */
+	@Field({
+		description: 'Whats the experience image ID',
+	})
+	@ApiProperty()
+	@IsDefined()
+	imageId?: string | number;
 }

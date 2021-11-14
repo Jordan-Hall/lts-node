@@ -22,4 +22,7 @@ export class TravelDestination {
 	@ManyToOne(() => TravelDestination, dest => dest.id)
 	@JoinTable()
 	parentId: TravelDestination;
+
+	@Column()
+	imageId: string | number;
 }

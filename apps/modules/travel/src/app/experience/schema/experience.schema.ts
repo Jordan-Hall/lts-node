@@ -23,4 +23,12 @@ export class ExperienceSchema extends NodeSchema<string> {
 	@Field((type) => ExperienceSchema)
 	parentId: ExperienceSchema;
 
+	/**
+	 * @description Reference to the Image
+	 */
+	@Field({
+		description: 'Image reference',
+		nullable: false,
+	})
+	imageId: string | number;
 }

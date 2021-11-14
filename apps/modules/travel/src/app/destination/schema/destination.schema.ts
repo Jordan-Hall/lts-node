@@ -28,4 +28,12 @@ export class DestinationSchema extends NodeSchema<string> {
 	@Field((type) => DestinationSchema)
 	parentId: DestinationSchema;
 
+	/**
+	 * @description Reference to the Image
+	 */
+	@Field({
+		description: 'Image reference',
+		nullable: false,
+	})
+	imageId: string | number;
 }

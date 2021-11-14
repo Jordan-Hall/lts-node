@@ -68,4 +68,14 @@ export class CreateDestinationRequest {
 	@ApiProperty()
 	@IsDefined()
 	description?: OutputData;
+
+	/**
+	 * @description Whats the destination Image ID
+	 */
+	@Field({
+		description: 'Whats the destination image ID',
+	})
+	@ApiProperty()
+	@IsDefined()
+	imageId?: string | number;
 }
