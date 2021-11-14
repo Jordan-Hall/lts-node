@@ -13,7 +13,9 @@ import {
 	FaqItem,
 	ItineraryItem,
 	Itinerary,
-	TravelPackages
+	TravelPackages,
+	DownloadItem,
+	GalleryItem
 } from './models/packages.model';
 
 @Module({
@@ -26,6 +28,8 @@ import {
 			FaqItem,
 			ItineraryItem,
 			Itinerary,
+			DownloadItem,
+			GalleryItem,
 			TravelPackages
 		]),
 	],
