@@ -18,7 +18,7 @@ import { GridFsMulterConfigService } from './multer-config.service';
       filePath: path.resolve(__dirname, 'assets/bootstrap.yaml'),
     }),
     MongooseModule.forRoot(
-      'mongodb+srv://dbUser:nOSLjiJZENzDbQo2@lts-cluser.4lnve.mongodb.net/file-upload?retryWrites=true&w=majority',
+      'mongodb://localhost:27017/file-upload?retryWrites=true&w=majority',
       {
         useNewUrlParser: true,
         useUnifiedTopology: true

@@ -13,7 +13,7 @@ export class GridFsMulterConfigService implements MulterOptionsFactory {
 				useNewUrlParser: true,
 				useUnifiedTopology: true
 			},
-			url: 'mongodb+srv://dbUser:nOSLjiJZENzDbQo2@lts-cluser.4lnve.mongodb.net/file-upload?retryWrites=true&w=majority',
+			url: 'mongodb://localhost:27017/file-upload?retryWrites=true&w=majority',
 			file: (req, file) => {
 				return new Promise((resolve, reject) => {
 					const filename = file.originalname.trim();
